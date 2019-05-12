@@ -1,5 +1,3 @@
-# Hero Village
+# Hero Village Idle Rpg
 
-Idle rpg game
-
-Build with create-react-app
+Build with create-react-app.
