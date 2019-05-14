@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Hero from './components/Hero';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Hero />, document.getElementById('root'));
