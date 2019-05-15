@@ -1,35 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
-import heroRunSprite from './hero-run.png';
-import heroAttackSprite from './hero-attack.png';
+import runSprite from './hero-run.png';
+import attackSprite from './hero-attack.png';
 
-export default class Hero extends React.Component {
-  state = {
-    image: heroRunSprite,
-  };
+const Hero = () => {
+  const [sprite, setSprite] = useState(runSprite);
 
-  render() {
-    return (
-      <Spritesheet
-        onClick={() =>
-          this.setState({
-            image:
-              this.state.image === heroRunSprite
-                ? heroAttackSprite
-                : heroRunSprite,
-          })
-        }
-        image={this.state.image}
-        steps={12}
-        fps={10}
-        direction="forward"
-        loop={true}
-        widthFrame={900}
-        heightFrame={900}
-        onLoopComplete={() => {
-          this.setState({ image: heroRunSprite });
-        }}
-      />
-    );
-  }
-}
+  return (
+    <Spritesheet
+      onClick={() => setSprite(attackSprite)}
+      image={sprite}
+      steps={12}
+      fps={12}
+      direction="forward"
+      loop={true}
+      widthFrame={900}
+      heightFrame={900}
+      onLoopComplete={() => setSprite(runSprite)}
+    />
+  );
+};
+
+export default Hero;
