@@ -1,6 +1,6 @@
 import React from 'react';
-import Animation from '../Animation';
-import heroSprite from './hero-sprite.png';
+import Animation from './Animation';
+import heroSprite from '../assets/hero-sprite.png';
 
 const SpriteData = {
   run: { from: 1, to: 12 },
