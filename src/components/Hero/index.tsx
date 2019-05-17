@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Animation from '../Animation';
-// import runSprite from './hero-run.png';
-// import attackSprite from './hero-attack.png';
 import heroSprite from './hero-sprite.png';
 
 const data = {
@@ -11,14 +9,17 @@ const data = {
 
 type TAnimations = keyof typeof data;
 
-const Hero = () => {
-  const [animation, setAnimation] = useState<TAnimations>('run');
+type TProps = {
+  state: TAnimations;
+  onClick?: () => void;
+};
 
+const Hero = ({ state, onClick }: TProps) => {
   return (
     <Animation<TAnimations>
-      // onClick={() => setAnimation('attack')}
+      onClick={onClick}
       image={heroSprite}
-      running={animation}
+      running={state}
       data={data}
     />
   );
