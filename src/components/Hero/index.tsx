@@ -2,25 +2,25 @@ import React from 'react';
 import Animation from '../Animation';
 import heroSprite from './hero-sprite.png';
 
-const data = {
+const SpriteData = {
   run: { from: 1, to: 12 },
   attack: { from: 13, to: 24 },
 };
 
-type TAnimations = keyof typeof data;
+export type THeroState = keyof typeof SpriteData;
 
 type TProps = {
-  state: TAnimations;
+  state: THeroState;
   onClick?: () => void;
 };
 
 const Hero = ({ state, onClick }: TProps) => {
   return (
-    <Animation<TAnimations>
+    <Animation<THeroState>
       onClick={onClick}
       image={heroSprite}
-      running={state}
-      data={data}
+      current={state}
+      data={SpriteData}
     />
   );
 };
