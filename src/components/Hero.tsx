@@ -11,16 +11,14 @@ export type THeroState = keyof typeof spriteData;
 
 type TProps = {
   state: THeroState;
-  onClick?: () => void;
 };
 
-const Hero = ({ state, onClick }: TProps) => {
+const Hero = ({ state }: TProps) => {
   return (
     <Animation<THeroState>
       image={heroSprite}
       data={spriteData}
       current={state}
-      onClick={onClick}
     />
   );
 };

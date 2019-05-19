@@ -10,15 +10,9 @@ type TProps<T> = {
   image: string;
   data: THashMap<TAnimationData>;
   current: T;
-  onClick?: () => void;
 };
 
-const Animation = <T extends string>({
-  image,
-  data,
-  current,
-  onClick,
-}: TProps<T>) => {
+const Animation = <T extends string>({ image, data, current }: TProps<T>) => {
   const totalFrames = Object.values(data).sort((a, b) => b.to - a.to)[0].to;
 
   return (
@@ -30,7 +24,6 @@ const Animation = <T extends string>({
       loop={true}
       widthFrame={900}
       heightFrame={900}
-      onClick={onClick}
       onEachFrame={(spritesheet: any) => {
         const frame: number = spritesheet.getInfo('frame');
         const { from, to } = data[current];

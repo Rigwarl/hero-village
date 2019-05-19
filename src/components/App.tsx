@@ -6,12 +6,10 @@ const App = () => {
 
   return (
     <>
-      <Hero
-        state={state}
-        onClick={() => {
-          setState(state === 'run' ? 'attack' : 'run');
-        }}
-      />
+      <Hero state={state} />
+      <button onClick={() => setState(state === 'run' ? 'attack' : 'run')}>
+        {state === 'run' ? 'attack' : 'run'}
+      </button>
     </>
   );
 };
