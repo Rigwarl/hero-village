@@ -22,8 +22,9 @@ const Animation = <T extends string>({ image, data, current }: TProps<T>) => {
       fps={12}
       direction="forward"
       loop={true}
-      widthFrame={900}
-      heightFrame={900}
+      style={{ width: '300px', height: '300px', display: 'inline-block' }}
+      widthFrame={300}
+      heightFrame={300}
       onEachFrame={(spritesheet: any) => {
         const frame: number = spritesheet.getInfo('frame');
         const { from, to } = data[current];
