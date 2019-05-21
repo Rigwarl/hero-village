@@ -1,18 +1,21 @@
 import React, { useReducer, useEffect } from 'react';
 import Hero, { THeroState } from './Hero';
-import Enemy from './Enemy';
+import Enemy, { TEnemyState } from './Enemy';
 import HealthBar from './HealthBar';
 
 const tps = 12;
 
 const initialState = {
   tick: 0,
-  heroState: 'attack' as THeroState,
+  heroState: 'idle' as THeroState,
   heroStateStart: 0,
-  heroAttackDuration: 10,
+  heroAttackTime: 10,
   heroAttackDamage: 2,
   heroHealth: 10,
   heroMaxHealth: 10,
+  enemyState: 'idle' as TEnemyState,
+  enemyStateStart: 0,
+  enemyRespawnTime: 20,
   enemyHealth: 10,
   enemyMaxHealth: 10,
 };
@@ -20,43 +23,77 @@ const initialState = {
 type TState = typeof initialState;
 
 type TAction = {
-  type: 'tick' | 'run' | 'attack' | 'hit';
+  type: 'tick' | 'idle' | 'run' | 'attack' | 'hit' | 'die' | 'spawn';
   data?: any;
 };
 
 const reducer: React.Reducer<TState, TAction> = (state, action) => {
+  action.type !== 'tick' && console.log(action.type);
   switch (action.type) {
     case 'tick':
       return { ...state, tick: state.tick + 1 };
+    case 'idle':
+      return { ...state, heroState: 'idle', heroStateStart: state.tick };
     case 'run':
       return { ...state, heroState: 'run', heroStateStart: state.tick };
     case 'attack':
       return { ...state, heroState: 'attack', heroStateStart: state.tick };
     case 'hit':
       return { ...state, enemyHealth: state.enemyHealth - action.data };
+    case 'die':
+      return { ...state, enemyState: 'dead', enemyStateStart: state.tick };
+    case 'spawn':
+      return {
+        ...state,
+        enemyState: 'idle',
+        enemyStateStart: state.tick,
+        enemyHealth: state.enemyMaxHealth,
+      };
     default:
       throw new Error(`wrong action type ${action.type}`);
   }
 };
 
 const tick = (state: TState, dispatch: React.Dispatch<TAction>) => {
+  if (state.heroState === 'idle') {
+    if (state.enemyState === 'dead') {
+      dispatch({ type: 'run' });
+    } else {
+      dispatch({ type: 'attack' });
+    }
+  }
+
   if (state.heroState === 'run') {
-    if (state.enemyHealth > 0) {
+    if (
+      state.enemyState === 'idle' &&
+      state.enemyStateStart + 8 <= state.tick
+    ) {
       dispatch({ type: 'attack' });
     }
   }
 
   if (state.heroState === 'attack') {
     const attackLength = state.tick - state.heroStateStart;
-    const hitTime = Math.floor(state.heroAttackDuration / 2) === attackLength;
+    const attackHit = Math.floor(state.heroAttackTime / 2) === attackLength;
 
-    if (hitTime) {
+    if (attackHit) {
       dispatch({ type: 'hit', data: state.heroAttackDamage });
     }
 
-    if (attackLength >= state.heroAttackDuration) {
-      dispatch({ type: 'run' });
+    if (attackLength >= state.heroAttackTime) {
+      dispatch({ type: 'idle' });
     }
+  }
+
+  if (state.enemyState === 'idle' && state.enemyHealth <= 0) {
+    dispatch({ type: 'die' });
+  }
+
+  if (
+    state.enemyState === 'dead' &&
+    state.enemyStateStart + state.enemyRespawnTime <= state.tick
+  ) {
+    dispatch({ type: 'spawn' });
   }
 
   dispatch({ type: 'tick' });
@@ -79,7 +116,7 @@ const App = () => {
 
       <div>
         <Hero state={state.heroState} />
-        <Enemy health={state.enemyHealth} />
+        <Enemy health={state.enemyHealth} state={state.enemyState} />
       </div>
     </>
   );

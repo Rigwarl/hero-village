@@ -1,19 +1,22 @@
 import React from 'react';
 import enemyImg from '../assets/enemy.png';
 
+export type TEnemyState = 'idle' | 'dead';
+
 type TProps = {
   health: number;
+  state: TEnemyState;
 };
 
-const Enemy = ({ health }: TProps) => (
+const Enemy = ({ health, state }: TProps) => (
   <img
     src={enemyImg}
     alt="enemy"
     style={{
       transform: 'scaleX(-1)',
-      opacity: health > 0 ? 1 : 0,
+      opacity: state === 'dead' ? 0 : 1,
       transition: 'opacity 0.7s',
-      transitionDelay: '0.7s',
+      transitionDelay: '0.5s',
     }}
   />
 );
