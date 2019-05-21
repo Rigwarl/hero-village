@@ -19,10 +19,10 @@ const HealthBar = ({ max, current }: TProps) => (
     <div
       style={{
         height: '10px',
-        transform: `scaleX(${current / max})`,
+        transform: `scaleX(${Math.max(current / max, 0)})`,
         transformOrigin: 0,
         backgroundColor: 'green',
-        transition: 'transform 0.5s',
+        transition: 'transform 0.7s',
       }}
     />
   </div>
