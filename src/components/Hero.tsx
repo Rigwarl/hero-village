@@ -3,6 +3,7 @@ import Animation from './Animation';
 import heroSprite from '../assets/hero-sprite.png';
 
 const spriteData = {
+  idle: { from: 1, to: 2 },
   run: { from: 1, to: 12 },
   attack: { from: 13, to: 24 },
 };
