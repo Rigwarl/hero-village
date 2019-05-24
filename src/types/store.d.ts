@@ -1,13 +1,14 @@
 import { ActionType } from 'typesafe-actions';
-import * as actions from '../actions/root';
-import reducer from '../reducers/root';
+import store from '../store';
+import action from '../store/root-action';
+import reducer from '../store/root-reducer';
 
 declare module 'typesafe-actions' {
-  // export type Store = StateType<typeof import('./index').default>;
+  export type Store = StateType<typeof store>;
 
   export type RootState = StateType<typeof reducer>;
 
-  export type RootAction = ActionType<typeof actions>;
+  export type RootAction = ActionType<typeof action>;
 
   interface Types {
     RootAction: RootAction;
