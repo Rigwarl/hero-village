@@ -7,13 +7,13 @@ const tps = 12;
 
 const initialState = {
   tick: 0,
-  heroState: 'idle' as THeroMove,
+  heroState: 'idle',
   heroStateStart: 0,
   heroAttackTime: 10,
   heroAttackDamage: 2,
   heroHealth: 10,
   heroMaxHealth: 10,
-  enemyState: 'idle' as TEnemyMove,
+  enemyState: 'idle',
   enemyStateStart: 0,
   enemyRespawnTime: 20,
   enemyHealth: 10,

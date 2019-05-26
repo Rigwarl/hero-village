@@ -1,6 +1,8 @@
 import { createReducer } from 'typesafe-actions';
 import * as actions from './enemy-actions';
 
+export type TEnemyMove = 'idle' | 'dead';
+
 const initialState = {
   move: 'idle' as TEnemyMove,
   moveTime: 0,

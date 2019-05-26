@@ -15,12 +15,15 @@ const mapStateToProps = (state: TState) => ({
   move: hero.getMove(state),
 });
 
+type TAnimationName = keyof typeof spriteData;
 type TProps = ReturnType<typeof mapStateToProps>;
 
-const Hero = ({ move }: TProps) => {
-  return (
-    <Animation<THeroMove> image={heroSprite} data={spriteData} current={move} />
-  );
-};
+const Hero = ({ move }: TProps) => (
+  <Animation<TAnimationName>
+    image={heroSprite}
+    data={spriteData}
+    current={move}
+  />
+);
 
 export default connect(mapStateToProps)(Hero);

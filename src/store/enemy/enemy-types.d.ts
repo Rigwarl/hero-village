@@ -1,1 +1,0 @@
-type TEnemyMove = 'idle' | 'dead';

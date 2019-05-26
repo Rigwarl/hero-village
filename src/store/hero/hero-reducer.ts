@@ -1,6 +1,8 @@
 import { createReducer } from 'typesafe-actions';
 import * as actions from './hero-actions';
 
+export type THeroMove = 'idle' | 'run' | 'attack';
+
 const initialState = {
   move: 'idle' as THeroMove,
   moveTime: 0,
