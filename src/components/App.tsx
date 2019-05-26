@@ -115,8 +115,8 @@ const App = () => {
       </div>
 
       <div>
-        <Hero state={state.heroState} />
-        <Enemy health={state.enemyHealth} state={state.enemyState} />
+        <Hero />
+        <Enemy />
       </div>
     </>
   );

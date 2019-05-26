@@ -4,13 +4,13 @@ import reducer from '../store/root-reducer';
 import * as actions from '../store/root-actions';
 
 declare module 'typesafe-actions' {
-  export type Store = StateType<typeof store>;
+  export type TStore = StateType<typeof store>;
 
-  export type RootState = StateType<typeof reducer>;
+  export type TState = StateType<typeof reducer>;
 
-  export type RootAction = ActionType<typeof actions>;
+  export type TAction = ActionType<typeof actions>;
 
   interface Types {
-    RootAction: RootAction;
+    RootAction: TAction;
   }
 }
