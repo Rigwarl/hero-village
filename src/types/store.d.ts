@@ -1,6 +1,6 @@
-import { ActionType } from 'typesafe-actions';
+import { ActionType, StateType } from 'typesafe-actions';
 import store from '../store';
-import action from '../store/root-action';
+import action from '../store/root-actions';
 import reducer from '../store/root-reducer';
 
 declare module 'typesafe-actions' {
