@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export default createReducer(initialState).handleAction(
-  actions.heroMove,
+  actions.move,
   (state, action) => ({
     ...state,
     move: action.payload,
