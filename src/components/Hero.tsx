@@ -8,15 +8,15 @@ const spriteData = {
   attack: { from: 13, to: 24 },
 };
 
-export type THeroState = keyof typeof spriteData;
+type THeroMove = keyof typeof spriteData;
 
 type TProps = {
-  state: THeroState;
+  state: THeroMove;
 };
 
 const Hero = ({ state }: TProps) => {
   return (
-    <Animation<THeroState>
+    <Animation<THeroMove>
       image={heroSprite}
       data={spriteData}
       current={state}

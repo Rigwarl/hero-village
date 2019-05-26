@@ -1,14 +1,14 @@
 import React from 'react';
 import enemyImg from '../assets/enemy.png';
 
-export type TEnemyState = 'idle' | 'dead';
+type TEnemyMove = 'idle' | 'dead';
 
 type TProps = {
   health: number;
-  state: TEnemyState;
+  state: TEnemyMove;
 };
 
-const Enemy = ({ health, state }: TProps) => (
+const Enemy = ({ state }: TProps) => (
   <img
     src={enemyImg}
     alt="enemy"

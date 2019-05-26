@@ -1,19 +1,19 @@
 import React, { useReducer, useEffect } from 'react';
-import Hero, { THeroState } from './Hero';
-import Enemy, { TEnemyState } from './Enemy';
+import Hero from './Hero';
+import Enemy from './Enemy';
 import HealthBar from './HealthBar';
 
 const tps = 12;
 
 const initialState = {
   tick: 0,
-  heroState: 'idle' as THeroState,
+  heroState: 'idle' as THeroMove,
   heroStateStart: 0,
   heroAttackTime: 10,
   heroAttackDamage: 2,
   heroHealth: 10,
   heroMaxHealth: 10,
-  enemyState: 'idle' as TEnemyState,
+  enemyState: 'idle' as TEnemyMove,
   enemyStateStart: 0,
   enemyRespawnTime: 20,
   enemyHealth: 10,
