@@ -1,6 +1,5 @@
 import { createReducer } from 'typesafe-actions';
 import * as actions from './enemy-actions';
-import * as heroAction from '../hero/hero-actions';
 
 const initialState = {
   move: 'idle' as TEnemyMove,
