@@ -12,9 +12,9 @@ const initialState = {
 
 export default createReducer(initialState).handleAction(
   actions.move,
-  (state, action) => ({
+  (state, { payload }) => ({
     ...state,
-    move: action.payload,
-    moveTime: action.meta,
+    move: payload.move,
+    moveTime: payload.time,
   })
 );

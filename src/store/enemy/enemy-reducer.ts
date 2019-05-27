@@ -10,17 +10,17 @@ const initialState = {
 };
 
 export default createReducer(initialState)
-  .handleAction(actions.move, (state, action) => ({
+  .handleAction(actions.move, (state, { payload }) => ({
     ...state,
-    move: action.payload,
-    moveTime: action.meta,
+    move: payload.move,
+    moveTime: payload.time,
   }))
-  .handleAction(actions.spawn, (_state, action) => ({
+  .handleAction(actions.spawn, (_state, { payload }) => ({
     move: 'idle',
     missedHealth: 0,
-    moveTime: action.meta,
+    moveTime: payload.time,
   }))
-  .handleAction(actions.damage, (state, action) => ({
+  .handleAction(actions.damage, (state, { payload }) => ({
     ...state,
-    missedHealth: state.missedHealth + action.payload,
+    missedHealth: state.missedHealth + payload.damage,
   }));
