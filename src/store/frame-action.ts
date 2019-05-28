@@ -1,11 +1,11 @@
-import { TStore } from 'typesafe-actions';
+import { TThunkAction } from 'typesafe-actions';
+
 import { app, hero, enemy } from './root-selectors';
 import * as actions from './root-actions';
 
-export default (store: TStore) => {
+export default (): TThunkAction<void> => (dispatch, getState) => {
   const time = Date.now();
-  const state = store.getState();
-  const dispatch = store.dispatch;
+  const state = getState();
 
   const appTime = app.getTime(state);
 
