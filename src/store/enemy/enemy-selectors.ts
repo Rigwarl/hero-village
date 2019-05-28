@@ -8,4 +8,6 @@ export const getHealth = (state: TState) =>
 
 export const getMove = (state: TState) => state.enemy.move;
 
+export const getMoveTime = (state: TState) => state.enemy.moveTime;
+
 export const getMoveDuration = () => ENEMY.MOVE_DURATION;

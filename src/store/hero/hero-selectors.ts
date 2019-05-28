@@ -10,4 +10,6 @@ export const getDamage = () => HERO.DAMAGE;
 
 export const getMove = (state: TState) => state.hero.move;
 
+export const getMoveTime = (state: TState) => state.hero.moveTime;
+
 export const getMoveDuration = () => HERO.MOVE_DURATION;
