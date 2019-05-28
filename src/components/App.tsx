@@ -1,7 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import Hero from './Hero';
 import Enemy from './Enemy';
-import HealthBar from './HealthBar';
+import HeroHealthBar from './HeroHealthBar';
+import EnemyHealthBar from './EnemyHealthBar';
 
 const tps = 12;
 
@@ -110,8 +111,8 @@ const App = () => {
   return (
     <>
       <div>
-        <HealthBar max={state.heroMaxHealth} current={state.heroHealth} />
-        <HealthBar max={state.enemyMaxHealth} current={state.enemyHealth} />
+        <HeroHealthBar />
+        <EnemyHealthBar />
       </div>
 
       <div>
