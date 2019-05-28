@@ -1,111 +1,30 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { TBoundThunkAction } from 'typesafe-actions';
+
+import frameAction from '../store/frame-action';
 import Hero from './Hero';
 import Enemy from './Enemy';
 import HeroHealthBar from './HeroHealthBar';
 import EnemyHealthBar from './EnemyHealthBar';
 
-const tps = 12;
-
-const initialState = {
-  tick: 0,
-  heroState: 'idle',
-  heroStateStart: 0,
-  heroAttackTime: 10,
-  heroAttackDamage: 2,
-  heroHealth: 10,
-  heroMaxHealth: 10,
-  enemyState: 'idle',
-  enemyStateStart: 0,
-  enemyRespawnTime: 20,
-  enemyHealth: 10,
-  enemyMaxHealth: 10,
+type TProps = {
+  frameAction: TBoundThunkAction<typeof frameAction>;
 };
 
-type TState = typeof initialState;
+const mapDispatchToProps = { frameAction };
 
-type TAction = {
-  type: 'tick' | 'idle' | 'run' | 'attack' | 'hit' | 'die' | 'spawn';
-  data?: any;
-};
-
-const reducer: React.Reducer<TState, TAction> = (state, action) => {
-  action.type !== 'tick' && console.log(action.type);
-  switch (action.type) {
-    case 'tick':
-      return { ...state, tick: state.tick + 1 };
-    case 'idle':
-      return { ...state, heroState: 'idle', heroStateStart: state.tick };
-    case 'run':
-      return { ...state, heroState: 'run', heroStateStart: state.tick };
-    case 'attack':
-      return { ...state, heroState: 'attack', heroStateStart: state.tick };
-    case 'hit':
-      return { ...state, enemyHealth: state.enemyHealth - action.data };
-    case 'die':
-      return { ...state, enemyState: 'dead', enemyStateStart: state.tick };
-    case 'spawn':
-      return {
-        ...state,
-        enemyState: 'idle',
-        enemyStateStart: state.tick,
-        enemyHealth: state.enemyMaxHealth,
-      };
-    default:
-      throw new Error(`wrong action type ${action.type}`);
-  }
-};
-
-const tick = (state: TState, dispatch: React.Dispatch<TAction>) => {
-  if (state.heroState === 'idle') {
-    if (state.enemyState === 'dead') {
-      dispatch({ type: 'run' });
-    } else {
-      dispatch({ type: 'attack' });
-    }
-  }
-
-  if (state.heroState === 'run') {
-    if (
-      state.enemyState === 'idle' &&
-      state.enemyStateStart + 8 <= state.tick
-    ) {
-      dispatch({ type: 'attack' });
-    }
-  }
-
-  if (state.heroState === 'attack') {
-    const attackLength = state.tick - state.heroStateStart;
-    const attackHit = Math.floor(state.heroAttackTime / 2) === attackLength;
-
-    if (attackHit) {
-      dispatch({ type: 'hit', data: state.heroAttackDamage });
-    }
-
-    if (attackLength >= state.heroAttackTime) {
-      dispatch({ type: 'idle' });
-    }
-  }
-
-  if (state.enemyState === 'idle' && state.enemyHealth <= 0) {
-    dispatch({ type: 'die' });
-  }
-
-  if (
-    state.enemyState === 'dead' &&
-    state.enemyStateStart + state.enemyRespawnTime <= state.tick
-  ) {
-    dispatch({ type: 'spawn' });
-  }
-
-  dispatch({ type: 'tick' });
-};
-
-const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+const App = ({ frameAction }: TProps) => {
   useEffect(() => {
-    const intervalId = setInterval(() => tick(state, dispatch), 1000 / tps);
-    return () => clearInterval(intervalId);
+    let rafId: number;
+
+    const frameHandler = () => {
+      frameAction();
+      rafId = requestAnimationFrame(frameHandler);
+    };
+    rafId = requestAnimationFrame(frameHandler);
+
+    return () => cancelAnimationFrame(rafId);
   });
 
   return (
@@ -123,4 +42,7 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
