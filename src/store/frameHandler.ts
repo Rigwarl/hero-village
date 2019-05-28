@@ -52,7 +52,7 @@ export default (store: TStore) => {
   }
 
   if (enemyMove === 'dead' && enemyMoveTime + enemyMoveDuration <= time) {
-    dispatch(dispatch(actions.enemy.spawn({ time })));
+    dispatch(actions.enemy.spawn({ time }));
   }
 
   dispatch(actions.app.setTime({ time }));
