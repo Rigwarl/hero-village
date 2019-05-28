@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { TState } from 'typesafe-actions';
 
 import HealthBar from './HealthBar';
-import { hero } from '../store/root-selectors';
+import { enemy } from '../store/root-selectors';
 
 const mapStateToProps = (state: TState) => ({
-  health: hero.getHealth(state),
-  maxHealth: hero.getMaxHealth(),
+  health: enemy.getHealth(state),
+  maxHealth: enemy.getMaxHealth(),
 });
 
 type TProps = ReturnType<typeof mapStateToProps>;
