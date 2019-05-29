@@ -1,12 +1,12 @@
 import React from 'react';
 
 type TProps = {
-  max: number;
-  current: number;
+  health: number;
+  maxHealth: number;
   // align: 'left' | 'right';
 };
 
-const HealthBar = ({ max, current }: TProps) => (
+const HealthBar = ({ maxHealth, health }: TProps) => (
   <div
     style={{
       display: 'inline-block',
@@ -19,7 +19,7 @@ const HealthBar = ({ max, current }: TProps) => (
     <div
       style={{
         height: '10px',
-        transform: `scaleX(${Math.max(current / max, 0)})`,
+        transform: `scaleX(${health / maxHealth})`,
         transformOrigin: 0,
         backgroundColor: 'green',
         transition: 'transform 0.7s',

@@ -1,24 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { TState } from 'typesafe-actions';
+import { enemy } from '../store/root-selectors';
 import enemyImg from '../assets/enemy.png';
 
-export type TEnemyState = 'idle' | 'dead';
+const mapStateToProps = (state: TState) => ({
+  move: enemy.getMove(state),
+});
 
-type TProps = {
-  health: number;
-  state: TEnemyState;
-};
+type TProps = ReturnType<typeof mapStateToProps>;
 
-const Enemy = ({ health, state }: TProps) => (
+const Enemy = ({ move }: TProps) => (
   <img
     src={enemyImg}
     alt="enemy"
     style={{
       transform: 'scaleX(-1)',
-      opacity: state === 'dead' ? 0 : 1,
+      opacity: move === 'dead' ? 0 : 1,
       transition: 'opacity 0.7s',
       transitionDelay: '0.5s',
     }}
   />
 );
 
-export default Enemy;
+export default connect(mapStateToProps)(Enemy);
