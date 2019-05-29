@@ -7,7 +7,7 @@ import { enemy } from '../store/root-selectors';
 
 const mapStateToProps = (state: TState) => ({
   health: enemy.getHealth(state),
-  maxHealth: enemy.getMaxHealth(),
+  maxHealth: enemy.getMaxHealth(state),
 });
 
 type TProps = ReturnType<typeof mapStateToProps>;

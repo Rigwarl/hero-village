@@ -11,7 +11,7 @@ const HealthBar = ({ maxHealth, health }: TProps) => (
     style={{
       display: 'inline-block',
       width: '200px',
-      margin: '50px',
+      margin: '0 50px',
       marginBottom: 0,
       border: '1px solid black',
     }}

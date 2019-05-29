@@ -1,10 +1,11 @@
 import { TState } from 'typesafe-actions';
 import * as ENEMY from './enemy-constants';
 
-export const getMaxHealth = () => ENEMY.HEALTH;
+export const getMaxHealth = (state: TState) =>
+  ENEMY.HEALTH * (1 + 0.2 * state.area.wave);
 
 export const getHealth = (state: TState) =>
-  getMaxHealth() - state.enemy.missedHealth;
+  Math.max(0, getMaxHealth(state) - state.enemy.missedHealth);
 
 export const getMove = (state: TState) => state.enemy.move;
 

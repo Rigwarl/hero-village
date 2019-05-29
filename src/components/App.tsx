@@ -7,6 +7,7 @@ import Hero from './Hero';
 import Enemy from './Enemy';
 import HeroHealthBar from './HeroHealthBar';
 import EnemyHealthBar from './EnemyHealthBar';
+import WaveIndicator from './WaveIndicator';
 
 type TProps = {
   frameAction: TBoundThunkAction<typeof frameAction>;
@@ -29,11 +30,11 @@ const App = ({ frameAction }: TProps) => {
 
   return (
     <>
+      <WaveIndicator />
       <div>
         <HeroHealthBar />
         <EnemyHealthBar />
       </div>
-
       <div>
         <Hero />
         <Enemy />
