@@ -1,4 +1,5 @@
 import React from 'react';
+import { ProgressBar } from 'react-bootstrap';
 
 type TProps = {
   health: number;
@@ -7,25 +8,7 @@ type TProps = {
 };
 
 const HealthBar = ({ maxHealth, health }: TProps) => (
-  <div
-    style={{
-      display: 'inline-block',
-      width: '200px',
-      margin: '0 50px',
-      marginBottom: 0,
-      border: '1px solid black',
-    }}
-  >
-    <div
-      style={{
-        height: '10px',
-        transform: `scaleX(${health / maxHealth})`,
-        transformOrigin: 0,
-        backgroundColor: 'green',
-        transition: 'transform 0.7s',
-      }}
-    />
-  </div>
+  <ProgressBar now={(health / maxHealth) * 100} />
 );
 
 export default HealthBar;
