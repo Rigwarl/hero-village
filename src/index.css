@@ -1,1 +1,5 @@
 @import url('~bootstrap/dist/css/bootstrap.css');
+
+.progress-bar {
+  transition-property: width, background-color;
+}
