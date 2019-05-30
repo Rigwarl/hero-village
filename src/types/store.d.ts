@@ -15,9 +15,7 @@ declare module 'typesafe-actions' {
   export type TThunkAction<R> = ThunkAction<R, TState, undefined, TAction>;
 
   export type TBoundThunkAction<
-    T extends (
-      ...args: any[]
-    ) => ThunkAction<ReturnType<ReturnType<T>>, TState, undefined, TAction>
+    T extends (...args: any[]) => TThunkAction<ReturnType<ReturnType<T>>>
   > = (...args: Parameters<T>) => ReturnType<ReturnType<T>>;
 
   interface Types {
