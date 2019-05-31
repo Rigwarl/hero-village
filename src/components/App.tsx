@@ -9,6 +9,7 @@ import Enemy from './Enemy';
 import HeroHealthBar from './HeroHealthBar';
 import EnemyHealthBar from './EnemyHealthBar';
 import WaveIndicator from './WaveIndicator';
+import HeroTab from './HeroTab';
 
 type TProps = {
   frameAction: TBoundThunkAction<typeof frameAction>;
@@ -46,6 +47,9 @@ const App = ({ frameAction }: TProps) => {
         </Col>
         <Col xs={6} className="text-center">
           <Enemy />
+        </Col>
+        <Col md={{ span: 6 }}>
+          <HeroTab />
         </Col>
       </Row>
     </Container>
