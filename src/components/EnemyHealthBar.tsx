@@ -13,7 +13,7 @@ const mapStateToProps = (state: TState) => ({
 type TProps = ReturnType<typeof mapStateToProps>;
 
 const EnemyHealthBar = ({ health, maxHealth }: TProps) => (
-  <HealthBar health={health} maxHealth={maxHealth} />
+  <HealthBar health={health} maxHealth={maxHealth} flip />
 );
 
 export default connect(mapStateToProps)(EnemyHealthBar);

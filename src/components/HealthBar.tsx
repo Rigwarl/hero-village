@@ -1,31 +1,23 @@
 import React from 'react';
+import { ProgressBar } from 'react-bootstrap';
 
 type TProps = {
   health: number;
   maxHealth: number;
-  // align: 'left' | 'right';
+  flip?: boolean;
 };
 
-const HealthBar = ({ maxHealth, health }: TProps) => (
-  <div
-    style={{
-      display: 'inline-block',
-      width: '200px',
-      margin: '0 50px',
-      marginBottom: 0,
-      border: '1px solid black',
-    }}
-  >
-    <div
-      style={{
-        height: '10px',
-        transform: `scaleX(${health / maxHealth})`,
-        transformOrigin: 0,
-        backgroundColor: 'green',
-        transition: 'transform 0.7s',
-      }}
+const HealthBar = ({ maxHealth, health, flip }: TProps) => {
+  const scale = health / maxHealth;
+  const variant = scale > 0.5 ? 'success' : scale > 0.2 ? 'warning' : 'danger';
+
+  return (
+    <ProgressBar
+      now={scale * 100}
+      variant={variant}
+      style={{ transform: `scale(${flip ? '-1' : '1'})` }}
     />
-  </div>
-);
+  );
+};
 
 export default HealthBar;

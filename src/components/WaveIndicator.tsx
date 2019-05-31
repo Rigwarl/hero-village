@@ -9,8 +9,6 @@ const mapDispatchToProps = (state: TState) => ({
 
 type TProps = ReturnType<typeof mapDispatchToProps>;
 
-const WaveIndicator = ({ wave }: TProps) => (
-  <div style={{ margin: '15px 50px' }}>wave: {wave}</div>
-);
+const WaveIndicator = ({ wave }: TProps) => <span>wave: {wave}</span>;
 
 export default connect(mapDispatchToProps)(WaveIndicator);

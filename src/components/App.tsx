@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Container, Row, Col } from 'react-bootstrap';
 import { TBoundThunkAction } from 'typesafe-actions';
 
 import frameAction from '../store/frame-action';
@@ -8,6 +9,7 @@ import Enemy from './Enemy';
 import HeroHealthBar from './HeroHealthBar';
 import EnemyHealthBar from './EnemyHealthBar';
 import WaveIndicator from './WaveIndicator';
+import HeroTab from './HeroTab';
 
 type TProps = {
   frameAction: TBoundThunkAction<typeof frameAction>;
@@ -29,17 +31,28 @@ const App = ({ frameAction }: TProps) => {
   });
 
   return (
-    <>
-      <WaveIndicator />
-      <div>
-        <HeroHealthBar />
-        <EnemyHealthBar />
-      </div>
-      <div>
-        <Hero />
-        <Enemy />
-      </div>
-    </>
+    <Container className="mt-3">
+      <Row className="align-items-center">
+        <Col xs={4}>
+          <HeroHealthBar />
+        </Col>
+        <Col xs={4} className="text-center">
+          <WaveIndicator />
+        </Col>
+        <Col xs={4}>
+          <EnemyHealthBar />
+        </Col>
+        <Col xs={6} className="text-center">
+          <Hero />
+        </Col>
+        <Col xs={6} className="text-center">
+          <Enemy />
+        </Col>
+        <Col md={{ span: 6 }}>
+          <HeroTab />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
