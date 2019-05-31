@@ -1,26 +1,28 @@
 import { createReducer } from 'typesafe-actions';
-import * as actions from './enemy-actions';
+import { actions } from '..';
 
 export type TEnemyMove = 'idle' | 'dead';
 
 const initialState = {
+  wave: 1,
   move: 'idle' as TEnemyMove,
   moveTime: 0,
   missedHealth: 0,
 };
 
 export default createReducer(initialState)
-  .handleAction(actions.move, (state, { payload }) => ({
+  .handleAction(actions.enemy.move, (state, { payload }) => ({
     ...state,
     move: payload.move,
     moveTime: payload.time,
   }))
-  .handleAction(actions.spawn, (_state, { payload }) => ({
+  .handleAction(actions.enemy.spawn, (state, { payload }) => ({
+    wave: state.wave + 1,
     move: 'idle',
     missedHealth: 0,
     moveTime: payload.time,
   }))
-  .handleAction(actions.damage, (state, { payload }) => ({
+  .handleAction(actions.hero.hit, (state, { payload }) => ({
     ...state,
     missedHealth: state.missedHealth + payload.damage,
   }));

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TState } from 'typesafe-actions';
-import { hero } from '../store/root-selectors';
+
+import { selectors } from '../store';
 import Animation from './Animation';
+
 import heroSprite from '../assets/hero-sprite.png';
 
 const spriteData = {
@@ -12,7 +14,7 @@ const spriteData = {
 };
 
 const mapStateToProps = (state: TState) => ({
-  move: hero.getMove(state),
+  move: selectors.hero.getMove(state),
 });
 
 type TAnimationName = keyof typeof spriteData;
