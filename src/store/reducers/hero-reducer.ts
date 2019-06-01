@@ -6,15 +6,22 @@ export type THeroMove = 'idle' | 'run' | 'attack';
 const initialState = {
   move: 'idle' as THeroMove,
   moveTime: 0,
-  level: 1,
+  lvl: 1,
+  exp: 0,
   missedHealth: 0,
 };
 
-export default createReducer(initialState).handleAction(
-  actions.hero.move,
-  (state, { payload }) => ({
+export default createReducer(initialState)
+  .handleAction(actions.hero.move, (state, { payload }) => ({
     ...state,
     move: payload.move,
     moveTime: payload.time,
-  })
-);
+  }))
+  .handleAction(actions.hero.changeExp, (state, { payload }) => ({
+    ...state,
+    exp: state.exp + payload.exp,
+  }))
+  .handleAction(actions.hero.addLvl, state => ({
+    ...state,
+    lvl: state.lvl + 1,
+  }));

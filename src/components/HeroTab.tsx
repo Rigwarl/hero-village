@@ -1,23 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, ProgressBar, Row, Col } from 'react-bootstrap';
+import { TState } from 'typesafe-actions';
 
-const HeroTab = () => (
+import { selectors } from '../store';
+
+const mapStateToProps = (state: TState) => ({
+  level: selectors.hero.getLvl(state),
+  exp: selectors.hero.getExp(state),
+  lvlExp: selectors.hero.getLvlExp(state),
+  lvlMultiplyer: selectors.hero.getLvlMultiplyer(state),
+});
+
+type TProps = ReturnType<typeof mapStateToProps>;
+
+const HeroTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
   <>
-    <Card className="border-0">
-      <Card.Body className="lead">Coins: 0 / 100</Card.Body>
-    </Card>
     <Card bg="light" border="light">
       <Card.Body>
-        <div className="h4 mb-3">Stats</div>
-        <ProgressBar now={50} label="exp: 10 / 20" className="mb-2" />
+        <div className="h4 mb-3">Hero</div>
+        <ProgressBar
+          now={(exp / lvlExp) * 100}
+          label={`${exp} / ${lvlExp}`}
+          className="mb-2"
+        />
 
         <Row>
           <Col xs={6} className="mb-2">
-            Hero level: 1
+            Hero level: {level}
           </Col>
           <Col xs={6} className="mb-2">
-            100% attack / 100% health
+            x{lvlMultiplyer} dmg / x{lvlMultiplyer} hp
           </Col>
           <Col xs={6} className="mb-2">
             Attack upgrade: 0
@@ -46,4 +59,4 @@ const HeroTab = () => (
   </>
 );
 
-export default connect()(HeroTab);
+export default connect(mapStateToProps)(HeroTab);

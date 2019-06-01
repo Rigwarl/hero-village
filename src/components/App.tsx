@@ -10,6 +10,8 @@ import HeroHealthBar from './HeroHealthBar';
 import EnemyHealthBar from './EnemyHealthBar';
 import WaveIndicator from './WaveIndicator';
 import HeroTab from './HeroTab';
+import UpgradesTab from './UpgradesTab';
+import Balance from './Balance';
 
 type TProps = {
   frameAction: TBoundThunkAction<typeof frameAction>;
@@ -32,7 +34,7 @@ const App = ({ frameAction }: TProps) => {
 
   return (
     <Container className="mt-3">
-      <Row className="align-items-center">
+      <Row>
         <Col xs={4}>
           <HeroHealthBar />
         </Col>
@@ -48,8 +50,14 @@ const App = ({ frameAction }: TProps) => {
         <Col xs={6} className="text-center">
           <Enemy />
         </Col>
-        <Col md={{ span: 6 }}>
+        <Col md={12}>
+          <Balance />
+        </Col>
+        <Col md={6}>
           <HeroTab />
+        </Col>
+        <Col md={6}>
+          <UpgradesTab />
         </Col>
       </Row>
     </Container>
