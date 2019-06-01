@@ -6,6 +6,8 @@ export const move = createStandardAction('hero/MOVE')<{
   time: number;
 }>();
 
-export const hit = createStandardAction('hero/HIT')<{
-  damage: number;
-}>();
+export const hit = createStandardAction('hero/HIT')<{ damage: number }>();
+
+export const addExp = createStandardAction('hero/EXP')<{ exp: number }>();
+
+export const lvlUp = createStandardAction('hero/LVLUP')();

@@ -11,12 +11,20 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
   const heroMove = selectors.hero.getMove(state);
   const heroMoveTime = selectors.hero.getMoveTime(state);
   const heroMoveDuration = selectors.hero.getMoveDuration();
-  const heroDamage = selectors.hero.getDamage();
+  const heroDamage = selectors.hero.getDamage(state);
+  const heroExp = selectors.hero.getExp(state);
+  const heroLvlExp = selectors.hero.getLvlExp(state);
 
   const enemyMove = selectors.enemy.getMove(state);
   const enemyMoveTime = selectors.enemy.getMoveTime(state);
   const enemyMoveDuration = selectors.enemy.getMoveDuration();
   const enemyHealth = selectors.enemy.getHealth(state);
+  const enemyExpPerKill = selectors.enemy.getKillExp(state);
+
+  if (heroExp >= heroLvlExp) {
+    dispatch(actions.hero.addExp({ exp: -heroLvlExp }));
+    dispatch(actions.hero.lvlUp());
+  }
 
   if (heroMove === 'idle') {
     if (enemyMove === 'dead') {
@@ -48,6 +56,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
 
   if (enemyMove === 'idle' && enemyHealth <= 0) {
     dispatch(actions.enemy.move({ move: 'dead', time }));
+    dispatch(actions.hero.addExp({ exp: enemyExpPerKill }));
   }
 
   if (enemyMove === 'dead' && enemyMoveTime + enemyMoveDuration <= time) {
