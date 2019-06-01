@@ -14,11 +14,11 @@ const mapStateToProps = (state: TState) => ({
 
 type TProps = ReturnType<typeof mapStateToProps>;
 
-const HeroTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
+const UpgradesTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
   <>
     <Card bg="light" border="light">
       <Card.Body>
-        <div className="h4 mb-3">Hero</div>
+        <div className="h4 mb-3">Upgrades</div>
         <ProgressBar
           now={(exp / lvlExp) * 100}
           label={`${exp} / ${lvlExp}`}
@@ -59,4 +59,4 @@ const HeroTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
   </>
 );
 
-export default connect(mapStateToProps)(HeroTab);
+export default connect(mapStateToProps)(UpgradesTab);
