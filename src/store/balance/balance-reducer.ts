@@ -1,5 +1,5 @@
 import { createReducer } from 'typesafe-actions';
-import { changeCoins } from '../actions/balance-actions';
+import { changeCoins } from './balance-actions';
 
 const initialBalanceState = { coins: 0 };
 

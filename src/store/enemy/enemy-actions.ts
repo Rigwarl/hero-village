@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
-import { TEnemyMove } from '../reducers/enemy-reducer';
+import { TEnemyMove } from './enemy-reducer';
 
 export const move = createStandardAction('enemy/MOVE')<{
   move: TEnemyMove;

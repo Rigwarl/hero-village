@@ -1,10 +1,10 @@
 import { createReducer } from 'typesafe-actions';
-import { setTime } from '../actions/root-actions';
+import { setTime } from './root-actions';
 import { combineReducers } from 'redux';
 
-import hero from './hero-reducer';
-import enemy from './enemy-reducer';
-import balance from './balance-reducer';
+import hero from './hero/hero-reducer';
+import enemy from './enemy/enemy-reducer';
+import balance from './balance/balance-reducer';
 
 const time = createReducer(0).handleAction(
   setTime,

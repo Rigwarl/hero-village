@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
-import { THeroMove } from '../reducers/hero-reducer';
+import { THeroMove } from './hero-reducer';
 
 export const move = createStandardAction('hero/MOVE')<{
   move: THeroMove;

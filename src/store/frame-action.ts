@@ -1,6 +1,6 @@
 import { TThunkAction } from 'typesafe-actions';
 
-import { selectors, actions } from '..';
+import { selectors, actions } from '.';
 
 export default (): TThunkAction<void> => (dispatch, getState) => {
   const time = Date.now();
