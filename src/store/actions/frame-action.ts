@@ -1,23 +1,22 @@
 import { TThunkAction } from 'typesafe-actions';
 
-import { app, hero, enemy } from './root-selectors';
-import * as actions from './root-actions';
+import { selectors, actions } from '..';
 
 export default (): TThunkAction<void> => (dispatch, getState) => {
   const time = Date.now();
   const state = getState();
 
-  const appTime = app.getTime(state);
+  const prevTime = selectors.getTime(state);
 
-  const heroMove = hero.getMove(state);
-  const heroMoveTime = hero.getMoveTime(state);
-  const heroMoveDuration = hero.getMoveDuration();
-  const heroDamage = hero.getDamage();
+  const heroMove = selectors.hero.getMove(state);
+  const heroMoveTime = selectors.hero.getMoveTime(state);
+  const heroMoveDuration = selectors.hero.getMoveDuration();
+  const heroDamage = selectors.hero.getDamage();
 
-  const enemyMove = enemy.getMove(state);
-  const enemyMoveTime = enemy.getMoveTime(state);
-  const enemyMoveDuration = enemy.getMoveDuration();
-  const enemyHealth = enemy.getHealth(state);
+  const enemyMove = selectors.enemy.getMove(state);
+  const enemyMoveTime = selectors.enemy.getMoveTime(state);
+  const enemyMoveDuration = selectors.enemy.getMoveDuration();
+  const enemyHealth = selectors.enemy.getHealth(state);
 
   if (heroMove === 'idle') {
     if (enemyMove === 'dead') {
@@ -35,11 +34,11 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
 
   if (heroMove === 'attack') {
     const hitTime = heroMoveTime + heroMoveDuration / 2;
-    const attackHit = hitTime >= appTime && hitTime < time;
+    const attackHit = hitTime >= prevTime && hitTime < time;
     const attackLength = time - heroMoveTime;
 
     if (attackHit) {
-      dispatch(actions.enemy.damage({ damage: heroDamage }));
+      dispatch(actions.hero.hit({ damage: heroDamage }));
     }
 
     if (attackLength >= heroMoveDuration) {
@@ -55,5 +54,5 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
     dispatch(actions.enemy.spawn({ time }));
   }
 
-  dispatch(actions.app.setTime({ time }));
+  dispatch(actions.setTime(time));
 };

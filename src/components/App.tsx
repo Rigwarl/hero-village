@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { TBoundThunkAction } from 'typesafe-actions';
 
-import frameAction from '../store/frame-action';
+import frameAction from '../store/actions/frame-action';
 import Hero from './Hero';
 import Enemy from './Enemy';
 import HeroHealthBar from './HeroHealthBar';

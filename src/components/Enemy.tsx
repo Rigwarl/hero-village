@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TState } from 'typesafe-actions';
-import { enemy } from '../store/root-selectors';
+
+import { selectors } from '../store';
+
 import enemyImg from '../assets/enemy.png';
 
 const mapStateToProps = (state: TState) => ({
-  move: enemy.getMove(state),
+  move: selectors.enemy.getMove(state),
 });
 
 type TProps = ReturnType<typeof mapStateToProps>;

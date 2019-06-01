@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
-import { TEnemyMove } from './enemy-reducer';
+import { TEnemyMove } from '../reducers/enemy-reducer';
 
 export const move = createStandardAction('enemy/MOVE')<{
   move: TEnemyMove;
@@ -7,7 +7,3 @@ export const move = createStandardAction('enemy/MOVE')<{
 }>();
 
 export const spawn = createStandardAction('enemy/SPAWN')<{ time: number }>();
-
-export const damage = createStandardAction('enemy/DAMAGE')<{
-  damage: number;
-}>();
