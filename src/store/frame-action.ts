@@ -6,7 +6,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
   const time = Date.now();
   const state = getState();
 
-  const prevTime = selectors.getTime(state);
+  const prevTime = selectors.time.get(state);
 
   const heroMove = selectors.hero.getMove(state);
   const heroMoveTime = selectors.hero.getMoveTime(state);
@@ -19,8 +19,8 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
   const enemyMoveTime = selectors.enemy.getMoveTime(state);
   const enemyMoveDuration = selectors.enemy.getMoveDuration();
   const enemyHealth = selectors.enemy.getHealth(state);
-  const enemyExpPerKill = selectors.enemy.getKillExp(state);
-  const enemyCoinsPerKill = selectors.enemy.getKillCoins(state);
+  const enemyExpPerKill = selectors.enemy.getExp(state);
+  const enemyCoinsPerKill = selectors.enemy.getCoins(state);
 
   if (heroExp >= heroLvlExp) {
     dispatch(actions.hero.changeExp({ exp: -heroLvlExp }));
@@ -65,5 +65,5 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
     dispatch(actions.enemy.spawn({ time }));
   }
 
-  dispatch(actions.setTime(time));
+  dispatch(actions.time.set(time));
 };
