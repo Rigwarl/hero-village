@@ -21,7 +21,7 @@ export default createReducer(initialState)
     ...state,
     exp: state.exp + payload.exp,
   }))
-  .handleAction(actions.hero.lvlUp, state => ({
+  .handleAction(actions.hero.addLvl, state => ({
     ...state,
     lvl: state.lvl + 1,
   }));

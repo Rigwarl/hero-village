@@ -23,7 +23,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
 
   if (heroExp >= heroLvlExp) {
     dispatch(actions.hero.addExp({ exp: -heroLvlExp }));
-    dispatch(actions.hero.lvlUp());
+    dispatch(actions.hero.addLvl());
   }
 
   if (heroMove === 'idle') {
