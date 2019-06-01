@@ -1,7 +1,7 @@
 import { TState } from 'typesafe-actions';
 import { selectors } from '..';
 
-const BALANCE = { MAX_COINS: 100 };
+const BALANCE = { MAX_COINS: 20 };
 const MULTIPLYERS = { LVL: 0.05 };
 
 export const getLvlMultiplyer = (state: TState) =>
