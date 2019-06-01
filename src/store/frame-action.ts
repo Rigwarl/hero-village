@@ -23,7 +23,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
   const enemyCoinsPerKill = selectors.enemy.getCoins(state);
 
   if (heroExp >= heroLvlExp) {
-    dispatch(actions.hero.changeExp({ exp: -heroLvlExp }));
+    dispatch(actions.hero.changeExp(-heroLvlExp));
     dispatch(actions.hero.addLvl());
   }
 
@@ -47,7 +47,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
     const attackLength = time - heroMoveTime;
 
     if (attackHit) {
-      dispatch(actions.hero.hit({ damage: heroDamage }));
+      dispatch(actions.hero.hit(heroDamage));
     }
 
     if (attackLength >= heroMoveDuration) {
@@ -57,8 +57,8 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
 
   if (enemyMove === 'idle' && enemyHealth <= 0) {
     dispatch(actions.enemy.move({ move: 'dead', time }));
-    dispatch(actions.hero.changeExp({ exp: enemyExpPerKill }));
-    dispatch(actions.balance.changeCoins({ coins: enemyCoinsPerKill }));
+    dispatch(actions.hero.changeExp(enemyExpPerKill));
+    dispatch(actions.balance.changeCoins(enemyCoinsPerKill));
   }
 
   if (enemyMove === 'dead' && enemyMoveTime + enemyMoveDuration <= time) {
