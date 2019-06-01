@@ -34,7 +34,7 @@ const App = ({ frameAction }: TProps) => {
 
   return (
     <Container className="mt-3">
-      <Row className="align-items-center">
+      <Row>
         <Col xs={4}>
           <HeroHealthBar />
         </Col>

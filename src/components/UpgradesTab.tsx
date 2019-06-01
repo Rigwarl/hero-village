@@ -1,57 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, ProgressBar, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 import { TState } from 'typesafe-actions';
 
 import { selectors } from '../store';
 
-const mapStateToProps = (state: TState) => ({
-  level: selectors.hero.getLvl(state),
-  exp: selectors.hero.getExp(state),
-  lvlExp: selectors.hero.getLvlExp(state),
-  lvlMultiplyer: selectors.hero.getLvlMultiplyer(state),
-});
+const mapStateToProps = (state: TState) => ({});
 
 type TProps = ReturnType<typeof mapStateToProps>;
 
-const UpgradesTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
+const UpgradesTab = ({  }: TProps) => (
   <>
     <Card bg="light" border="light">
       <Card.Body>
         <div className="h4 mb-3">Upgrades</div>
-        <ProgressBar
-          now={(exp / lvlExp) * 100}
-          label={`${exp} / ${lvlExp}`}
-          className="mb-2"
-        />
 
-        <Row>
-          <Col xs={6} className="mb-2">
-            Hero level: {level}
+        <Row className="align-items-center">
+          <Col xs={9} className="mb-3">
+            <Button disabled block className="text-left">
+              Upgrade damage: {678} coins
+            </Button>
           </Col>
-          <Col xs={6} className="mb-2">
-            x{lvlMultiplyer} dmg / x{lvlMultiplyer} hp
+          <Col xs={3} className="mb-3">
+            x2
           </Col>
-          <Col xs={6} className="mb-2">
-            Attack upgrade: 0
+          <Col xs={9} className="mb-3">
+            <Button block className="text-left">
+              Upgrade health {5} coins
+            </Button>
           </Col>
-          <Col xs={6} className="mb-2">
-            100% attack
-          </Col>
-          <Col xs={6} className="mb-2">
-            Defense upgrade: 0
-          </Col>
-          <Col xs={6} className="mb-2">
-            100% health
-          </Col>
-          <Col xs={12}>
-            <hr />
-          </Col>
-          <Col xs={6} className="mb-2">
-            <b>Total</b>
-          </Col>
-          <Col xs={6}>
-            <b>100% attack / 100% health</b>
+          <Col xs={3} className="mb-3">
+            x1
           </Col>
         </Row>
       </Card.Body>
