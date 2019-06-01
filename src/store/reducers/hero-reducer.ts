@@ -17,7 +17,7 @@ export default createReducer(initialState)
     move: payload.move,
     moveTime: payload.time,
   }))
-  .handleAction(actions.hero.addExp, (state, { payload }) => ({
+  .handleAction(actions.hero.changeExp, (state, { payload }) => ({
     ...state,
     exp: state.exp + payload.exp,
   }))
