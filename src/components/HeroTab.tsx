@@ -9,7 +9,7 @@ const mapStateToProps = (state: TState) => ({
   level: selectors.hero.getLvl(state),
   exp: selectors.hero.getExp(state),
   lvlExp: selectors.hero.getLvlExp(state),
-  lvlMultiplyer: selectors.hero.getLvlMultiplyer(state),
+  lvlMultiplyer: selectors.hero.getLvlDamageMultiplyer(state),
 });
 
 type TProps = ReturnType<typeof mapStateToProps>;
@@ -30,7 +30,7 @@ const HeroTab = ({ level, exp, lvlExp, lvlMultiplyer }: TProps) => (
             Hero level: {level}
           </Col>
           <Col xs={6} className="mb-2">
-            x{lvlMultiplyer} dmg / x{lvlMultiplyer} hp
+            x{lvlMultiplyer} dmg
           </Col>
           <Col xs={6} className="mb-2">
             Attack upgrade: 0
