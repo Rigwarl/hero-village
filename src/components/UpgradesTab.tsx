@@ -3,13 +3,26 @@ import { connect } from 'react-redux';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { TState } from 'typesafe-actions';
 
-// import { selectors } from '../store';
+import { selectors, actions } from '../store';
 
-const mapStateToProps = (state: TState) => ({});
+const mapStateToProps = (state: TState) => ({
+  _damageLvl: selectors.upgrades.getDamageLvl(state),
+  damageMult: selectors.upgrades.getDamageMult(state),
+  damageCost: selectors.upgrades.getDamageCost(state),
+});
 
-type TProps = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = {
+  buyDamage: actions.upgrades.upDamage,
+};
 
-const UpgradesTab = (_p: TProps) => (
+type TProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+const UpgradesTab = ({
+  _damageLvl,
+  damageMult,
+  damageCost,
+  buyDamage,
+}: TProps) => (
   <>
     <Card bg="light" border="light">
       <Card.Body>
@@ -17,20 +30,12 @@ const UpgradesTab = (_p: TProps) => (
 
         <Row className="align-items-center">
           <Col xs={9} className="mb-3">
-            <Button disabled block className="text-left">
-              Upgrade damage: {678} coins
+            <Button onClick={buyDamage} block className="text-left">
+              Upgrade damage: {damageCost} coins
             </Button>
           </Col>
           <Col xs={3} className="mb-3">
-            x2
-          </Col>
-          <Col xs={9} className="mb-3">
-            <Button block className="text-left">
-              Upgrade health {5} coins
-            </Button>
-          </Col>
-          <Col xs={3} className="mb-3">
-            x1
+            x{damageMult}
           </Col>
         </Row>
       </Card.Body>
@@ -38,4 +43,7 @@ const UpgradesTab = (_p: TProps) => (
   </>
 );
 
-export default connect(mapStateToProps)(UpgradesTab);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UpgradesTab);
