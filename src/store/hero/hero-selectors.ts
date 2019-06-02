@@ -1,5 +1,4 @@
 import { TState } from 'typesafe-actions';
-import { selectors } from '..';
 
 const HERO = {
   HEALTH: 1,
@@ -8,27 +7,28 @@ const HERO = {
   MOVE_DURATION: 900,
 };
 
-const MULTIPLYERS = {
+const MULTS = {
   LVL_EXP: 0.5,
-  LVL_DAMAGE: 0.05,
+  DAMAGE: 0.05,
+  BALANCE: 0.05,
 };
 
-export const getLvlExpMultiplyer = (state: TState) =>
-  1 + MULTIPLYERS.LVL_EXP * (selectors.hero.getLvl(state) - 1);
-export const getLvlDamageMultiplyer = (state: TState) =>
-  1 + MULTIPLYERS.LVL_DAMAGE * (selectors.hero.getLvl(state) - 1);
+export const getLvlExpMult = (state: TState) =>
+  1 + MULTS.LVL_EXP * (getLvl(state) - 1);
+export const getDamageMult = (state: TState) =>
+  1 + MULTS.DAMAGE * (getLvl(state) - 1);
+export const getBalanceMult = (state: TState) =>
+  1 + (getLvl(state) - 1) * MULTS.BALANCE;
 
-export const getMaxHealth = () => HERO.HEALTH;
 export const getHealth = (state: TState) =>
   getMaxHealth() - state.hero.missedHealth;
+export const getMaxHealth = () => HERO.HEALTH;
 
 export const getLvl = (state: TState) => state.hero.lvl;
-export const getDamage = (state: TState) =>
-  HERO.DAMAGE * getLvlDamageMultiplyer(state);
+export const getDamage = (state: TState) => HERO.DAMAGE * getDamageMult(state);
 
-export const getLvlExp = (state: TState) =>
-  HERO.LVL_EXP * getLvlExpMultiplyer(state);
 export const getExp = (state: TState) => state.hero.exp;
+export const getLvlExp = (state: TState) => HERO.LVL_EXP * getLvlExpMult(state);
 
 export const getMove = (state: TState) => state.hero.move;
 export const getMoveTime = (state: TState) => state.hero.moveTime;
