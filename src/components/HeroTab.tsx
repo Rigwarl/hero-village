@@ -10,11 +10,22 @@ const mapStateToProps = (state: TState) => ({
   exp: selectors.hero.getExp(state),
   lvlExp: selectors.hero.getLvlExp(state),
   damageMult: selectors.hero.getDamageMult(state),
+  balanceMult: selectors.hero.getBalanceMult(state),
+  damage: selectors.hero.getDamage(state),
+  health: selectors.hero.getHealth(state),
 });
 
 type TProps = ReturnType<typeof mapStateToProps>;
 
-const HeroTab = ({ level, exp, lvlExp, damageMult }: TProps) => (
+const HeroTab = ({
+  level,
+  exp,
+  lvlExp,
+  damageMult,
+  balanceMult,
+  damage,
+  health,
+}: TProps) => (
   <>
     <Card bg="light" border="light">
       <Card.Body>
@@ -22,36 +33,28 @@ const HeroTab = ({ level, exp, lvlExp, damageMult }: TProps) => (
         <ProgressBar
           now={(exp / lvlExp) * 100}
           label={`${exp} / ${lvlExp}`}
-          className="mb-2"
+          className="mb-3"
         />
 
         <Row>
-          <Col xs={6} className="mb-2">
-            Hero level: {level}
+          <Col xs={6} className="mb-3">
+            Level: {level}
           </Col>
-          <Col xs={6} className="mb-2">
-            x{damageMult} dmg
+          <Col xs={6} className="mb-3">
+            <div>x{damageMult} damage</div>
+            <div>x{balanceMult} balance</div>
           </Col>
-          <Col xs={6} className="mb-2">
-            Attack upgrade: 0
+          <Col xs={6} className="mb-3">
+            Damage:
           </Col>
-          <Col xs={6} className="mb-2">
-            100% attack
+          <Col xs={6} className="mb-3">
+          {damage}
           </Col>
-          <Col xs={6} className="mb-2">
-            Defense upgrade: 0
+          <Col xs={6} className="mb-3">
+            Health
           </Col>
-          <Col xs={6} className="mb-2">
-            100% health
-          </Col>
-          <Col xs={12}>
-            <hr />
-          </Col>
-          <Col xs={6} className="mb-2">
-            <b>Total</b>
-          </Col>
-          <Col xs={6}>
-            <b>100% attack / 100% health</b>
+          <Col xs={6} className="mb-3">
+            {health}
           </Col>
         </Row>
       </Card.Body>

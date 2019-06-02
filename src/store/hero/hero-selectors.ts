@@ -1,7 +1,7 @@
 import { TState } from 'typesafe-actions';
 
 const HERO = {
-  HEALTH: 1,
+  HEALTH: 10,
   DAMAGE: 2,
   LVL_EXP: 20,
   MOVE_DURATION: 900,
