@@ -2,19 +2,23 @@ import { TState } from 'typesafe-actions';
 
 const ENEMY = {
   HEALTH: 5,
-  KILL_EXP: 5,
-  KILL_COINS: 2,
-  WAVE_MULTIPLYER: 0.2,
+  EXP: 5,
+  COINS: 2,
   MOVE_DURATION: 1500,
 };
 
+const MULTS = { WAVE: 0.2 };
+
+export const getDamageMult = (state: TState) =>
+  1 + MULTS.WAVE * (getWave(state) - 1);
+
 export const getWave = (state: TState) => state.enemy.wave;
 
-export const getKillExp = (_state: TState) => ENEMY.KILL_EXP;
-export const getKillCoins = (_state: TState) => ENEMY.KILL_COINS;
+export const getExp = (_state: TState) => ENEMY.EXP;
+export const getCoins = (_state: TState) => ENEMY.COINS;
 
 export const getMaxHealth = (state: TState) =>
-  ENEMY.HEALTH * (1 + ENEMY.WAVE_MULTIPLYER * (state.enemy.wave - 1));
+  ENEMY.HEALTH * getDamageMult(state);
 export const getHealth = (state: TState) =>
   Math.max(0, getMaxHealth(state) - state.enemy.missedHealth);
 

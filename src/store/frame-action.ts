@@ -1,12 +1,12 @@
 import { TThunkAction } from 'typesafe-actions';
 
-import { selectors, actions } from '..';
+import { selectors, actions } from '.';
 
 export default (): TThunkAction<void> => (dispatch, getState) => {
   const time = Date.now();
   const state = getState();
 
-  const prevTime = selectors.getTime(state);
+  const prevTime = selectors.time.get(state);
 
   const heroMove = selectors.hero.getMove(state);
   const heroMoveTime = selectors.hero.getMoveTime(state);
@@ -19,11 +19,14 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
   const enemyMoveTime = selectors.enemy.getMoveTime(state);
   const enemyMoveDuration = selectors.enemy.getMoveDuration();
   const enemyHealth = selectors.enemy.getHealth(state);
-  const enemyExpPerKill = selectors.enemy.getKillExp(state);
-  const enemyCoinsPerKill = selectors.enemy.getKillCoins(state);
+  const enemyExpPerKill = selectors.enemy.getExp(state);
+  const enemyCoinsPerKill = selectors.enemy.getCoins(state);
+
+  const coins = selectors.balance.getCoins(state);
+  const maxCoins = selectors.balance.getMaxCoins(state);
 
   if (heroExp >= heroLvlExp) {
-    dispatch(actions.hero.changeExp({ exp: -heroLvlExp }));
+    dispatch(actions.hero.changeExp(-heroLvlExp));
     dispatch(actions.hero.addLvl());
   }
 
@@ -47,7 +50,7 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
     const attackLength = time - heroMoveTime;
 
     if (attackHit) {
-      dispatch(actions.hero.hit({ damage: heroDamage }));
+      dispatch(actions.hero.hit(heroDamage));
     }
 
     if (attackLength >= heroMoveDuration) {
@@ -57,13 +60,15 @@ export default (): TThunkAction<void> => (dispatch, getState) => {
 
   if (enemyMove === 'idle' && enemyHealth <= 0) {
     dispatch(actions.enemy.move({ move: 'dead', time }));
-    dispatch(actions.hero.changeExp({ exp: enemyExpPerKill }));
-    dispatch(actions.balance.changeCoins({ coins: enemyCoinsPerKill }));
+    dispatch(actions.hero.changeExp(enemyExpPerKill));
+    dispatch(
+      actions.balance.changeCoins(Math.min(maxCoins - coins, enemyCoinsPerKill))
+    );
   }
 
   if (enemyMove === 'dead' && enemyMoveTime + enemyMoveDuration <= time) {
     dispatch(actions.enemy.spawn({ time }));
   }
 
-  dispatch(actions.setTime(time));
+  dispatch(actions.time.set(time));
 };

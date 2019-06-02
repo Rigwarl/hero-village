@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { TState } from 'typesafe-actions';
 
-import { selectors } from '../store';
+// import { selectors } from '../store';
 
 const mapStateToProps = (state: TState) => ({});
 
 type TProps = ReturnType<typeof mapStateToProps>;
 
-const UpgradesTab = ({  }: TProps) => (
+const UpgradesTab = (_p: TProps) => (
   <>
     <Card bg="light" border="light">
       <Card.Body>

@@ -24,5 +24,5 @@ export default createReducer(initialState)
   }))
   .handleAction(actions.hero.hit, (state, { payload }) => ({
     ...state,
-    missedHealth: state.missedHealth + payload.damage,
+    missedHealth: state.missedHealth + payload,
   }));

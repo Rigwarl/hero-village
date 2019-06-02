@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import * as actions from './actions/root-actions';
-import * as selectors from './selectors/root-selectors';
-import reducer from './reducers/root-reducer';
+import * as actions from './root-actions';
+import * as selectors from './root-selectors';
+import reducer from './root-reducer';
 
 export { reducer, actions, selectors };
 

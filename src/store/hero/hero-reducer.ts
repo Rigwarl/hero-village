@@ -19,7 +19,7 @@ export default createReducer(initialState)
   }))
   .handleAction(actions.hero.changeExp, (state, { payload }) => ({
     ...state,
-    exp: state.exp + payload.exp,
+    exp: state.exp + payload,
   }))
   .handleAction(actions.hero.addLvl, state => ({
     ...state,
