@@ -1,3 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
 
-export const upDamage = createStandardAction('upgrades/DAMAGE')();
+export const buyDamage = createStandardAction('upgrades/DAMAGE')<{
+  coins: number;
+}>();

@@ -6,18 +6,20 @@ import { TState } from 'typesafe-actions';
 import { selectors, actions } from '../store';
 
 const mapStateToProps = (state: TState) => ({
+  coins: selectors.balance.getCoins(state),
   _damageLvl: selectors.upgrades.getDamageLvl(state),
   damageMult: selectors.upgrades.getDamageMult(state),
   damageCost: selectors.upgrades.getDamageCost(state),
 });
 
 const mapDispatchToProps = {
-  buyDamage: actions.upgrades.upDamage,
+  buyDamage: actions.upgrades.buyDamage,
 };
 
 type TProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 const UpgradesTab = ({
+  coins,
   _damageLvl,
   damageMult,
   damageCost,
@@ -30,7 +32,11 @@ const UpgradesTab = ({
 
         <Row className="align-items-center">
           <Col xs={9} className="mb-3">
-            <Button onClick={buyDamage} block className="text-left">
+            <Button
+              onClick={() => buyDamage({ coins: damageCost })}
+              disabled={damageCost > coins}
+              className="text-left"
+            >
               Upgrade damage: {damageCost} coins
             </Button>
           </Col>

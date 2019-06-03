@@ -8,7 +8,7 @@ const initialState = {
 export type TUpgrades = keyof typeof initialState;
 
 export default createReducer(initialState).handleAction(
-  actions.upgrades.upDamage,
+  actions.upgrades.buyDamage,
   state => ({
     ...state,
     damage: state.damage + 1,
