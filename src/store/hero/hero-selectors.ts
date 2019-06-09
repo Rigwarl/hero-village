@@ -1,7 +1,8 @@
 import { TState } from 'typesafe-actions';
+import { selectors } from '..';
 
 const HERO = {
-  HEALTH: 1,
+  HEALTH: 10,
   DAMAGE: 2,
   LVL_EXP: 20,
   MOVE_DURATION: 900,
@@ -25,7 +26,8 @@ export const getHealth = (state: TState) =>
 export const getMaxHealth = () => HERO.HEALTH;
 
 export const getLvl = (state: TState) => state.hero.lvl;
-export const getDamage = (state: TState) => HERO.DAMAGE * getDamageMult(state);
+export const getDamage = (state: TState) =>
+  HERO.DAMAGE * getDamageMult(state) * selectors.upgrades.getDamageMult(state);
 
 export const getExp = (state: TState) => state.hero.exp;
 export const getLvlExp = (state: TState) => HERO.LVL_EXP * getLvlExpMult(state);
