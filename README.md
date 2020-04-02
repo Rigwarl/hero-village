@@ -1,5 +1,5 @@
 # Hero Village Idle Rpg
 
-Project closed.
+## Project closed
 
 Build with create-react-app.
